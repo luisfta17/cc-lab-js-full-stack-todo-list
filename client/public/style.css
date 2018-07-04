@@ -1,0 +1,38 @@
+li{
+  list-style: none;
+}
+
+ul{
+  padding: 0;
+}
+
+.text-field {
+  border-color: transparent;
+  background: transparent;
+}
+
+.text-field:hover {
+  border-color: blue;
+}
+
+.text-field:focus{
+  background-color: #ddd;
+  border-color: black;
+  outline-width: 1px;
+}
+
+body {
+  position: absolute;
+  background: linear-gradient(to right, #1cefff, #c0c0aa);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  }
+
+  html {
+    height: 100vh;
+  }

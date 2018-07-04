@@ -24,7 +24,7 @@ TodoList.prototype.render = function (todos) {
 
     const textField = createTextField(_id, text)
     li.appendChild(textField)
-    
+
     const button = createDeleteButton(_id)
     li.appendChild(button);
 
@@ -49,6 +49,7 @@ function createCheckbox(id, done) {
 function createTextField(id, text) {
   const textField = document.createElement('input')
   textField.value = text;
+  textField.className = "text-field"
 
   textField.addEventListener('change', (evt) => {
     const todo = {text:evt.target.value}
