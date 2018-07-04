@@ -16,23 +16,47 @@ TodoList.prototype.render = function (todos) {
   const ul = document.createElement('ul');
 
   for (const todo of todos) {
-    const { text, done } = todo
+    const { _id, text, done } = todo
     const li = document.createElement('li');
-    li.textContent = `${done?'✅':'☑️'} ${text}`;
 
-    const button = document.createElement('button');
-    button.textContent = '🗑'
-    button.className = "todo-delete"
-    button.value = todo._id;
-    button.addEventListener('click', evt => {
-      const id = evt.target.value;
-      PubSub.publish('TodoList:delete-todo', id)
-    })
+    const checkbox = createCheckbox(_id, done)
+    li.appendChild(checkbox)
 
+    const textSpan = document.createElement('span')
+    textSpan.textContent = text;
+    li.appendChild(textSpan)
+    
+    const button = createDeleteButton(_id)
     li.appendChild(button);
+
     ul.appendChild(li);
   }
   this.container.appendChild(ul);
 };
+
+function createCheckbox(id, done) {
+  const checkbox = document.createElement('input')
+  checkbox.type = "checkbox"
+  checkbox.checked = done
+
+  checkbox.addEventListener('change', (evt) => {
+    const done = evt.target.checked
+    PubSub.publish('TodoList:update-done', {id, done})
+  })
+
+  return checkbox
+}
+
+function createDeleteButton(id) {
+  const button = document.createElement('button');
+  button.textContent = '🗑'
+  button.className = "todo-delete"
+
+  button.addEventListener('click', () => {
+    PubSub.publish('TodoList:delete-todo', id)
+  })
+
+  return button
+}
 
 module.exports = TodoList;

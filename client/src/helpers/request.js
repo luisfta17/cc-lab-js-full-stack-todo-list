@@ -31,4 +31,14 @@ function deleteRequest(url, id, callback) {
   request(`${url}/${id}`, options, callback)
 }
 
-module.exports = {get, post, delete: deleteRequest}
+function put(url, id, body, callback) {
+  const options = {
+    body: JSON.stringify(body),
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' }
+  }
+
+  request(`${url}/${id}`, options, callback)
+}
+
+module.exports = {get, post, put, delete: deleteRequest}

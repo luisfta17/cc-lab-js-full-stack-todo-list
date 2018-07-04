@@ -13,6 +13,11 @@ TodoList.prototype.bindEvents = function() {
   PubSub.subscribe('TodoList:delete-todo', (event) => {
     this.handleDelete(event.detail)
   })
+
+  PubSub.subscribe('TodoList:update-done', (event) => {
+    const {id, done} = event.detail
+    this.handleUpdateDone(id, done)
+  })
 }
 
 TodoList.prototype.getData = function () {
@@ -29,6 +34,12 @@ TodoList.prototype.handleSubmit = function(todo) {
 
 TodoList.prototype.handleDelete = function(id) {
   request.delete(this.url, id, (err, todos) => {
+    PubSub.publish('TodoList:data-loaded', todos);
+  })
+}
+
+TodoList.prototype.handleUpdateDone = function(id, done) {
+  request.put(this.url, id, {done}, (err, todos) => {
     PubSub.publish('TodoList:data-loaded', todos);
   })
 }
