@@ -5,7 +5,7 @@ const NewTodo = require('./views/new_todo_view');
 document.addEventListener('DOMContentLoaded', () => {
   const newTodo = document.querySelector('#new-todo');
   const todoList = document.querySelector('#todos');
-
+  
   const newTodoView = new NewTodo(newTodo)
   newTodoView.bindEvents()
 

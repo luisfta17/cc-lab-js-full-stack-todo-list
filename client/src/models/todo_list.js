@@ -9,6 +9,10 @@ TodoList.prototype.bindEvents = function() {
   PubSub.subscribe('NewTodo:todo-submitted', (event) => {
     this.handleSubmit(event.detail)
   })
+
+  PubSub.subscribe('TodoList:delete-todo', (event) => {
+    this.handleDelete(event.detail)
+  })
 }
 
 TodoList.prototype.getData = function () {
@@ -18,7 +22,18 @@ TodoList.prototype.getData = function () {
 };
 
 TodoList.prototype.handleSubmit = function(todo) {
-  console.log({todo})
+  request.post(this.url, todo, (err, todos) => {
+    PubSub.publish('TodoList:data-loaded', todos);
+  })
 }
+
+TodoList.prototype.handleDelete = function(id) {
+  request.delete(this.url, id, (err, todos) => {
+    PubSub.publish('TodoList:data-loaded', todos);
+  })
+}
+
+
+
 
 module.exports = TodoList;
