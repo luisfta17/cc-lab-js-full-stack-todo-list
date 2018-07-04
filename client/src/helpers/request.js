@@ -13,4 +13,14 @@ function get(url, callback) {
   request(url, {}, callback)
 }
 
-module.exports = {get}
+function post(url, body, callback) {
+  options = {
+    body: JSON.stringify(body),
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' }
+  }
+
+  request(url, options, callback)
+}
+
+module.exports = {get, post}
