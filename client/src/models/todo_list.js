@@ -6,7 +6,9 @@ const TodoList = function (url) {
 }
 
 TodoList.prototype.getData = function () {
-  request.get(this.url, (todos) => {
-      PubSub.publish('Sightings:data-loaded', todos);
-    })
+  request.get(this.url, (error, todos) => {
+    PubSub.publish('TodoList:data-loaded', todos);
+  })
 };
+
+module.exports = TodoList;

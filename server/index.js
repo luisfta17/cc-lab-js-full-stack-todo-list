@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const createRouter = require('./helper/create-router.js');
 
-MongoClient.connect("mongodb://localhost:27017", (error, client) => {
+MongoClient.connect("mongodb://localhost:27017", { useNewUrlParser: true }, (error, client) => {
   if (error){
     console.error(error);
   }
