@@ -7,7 +7,17 @@
   <title>To-Do List</title>
 </head>
 <body>
-  
+  <form id="new-todo">
+    <input type="text" name="text" value="" required placeholder="New Todo">
+    <label>
+      Is done?
+    <input type="checkbox" name="done" value="">
+    </label>
+    <input type="submit">
+  </form>
+  <div id="todos">
+  </div>
+
   <script src="bundle.js"></script>
 </body>
 </html>

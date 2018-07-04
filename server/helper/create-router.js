@@ -2,6 +2,7 @@ const router = require('express').Router();
 const ObjectID = require('mongodb').ObjectID;
 
 function createRouter(collection) {
+
   router.get('/', (req, res) => {
     getAllDocs(res)
   });
