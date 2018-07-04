@@ -22,9 +22,8 @@ TodoList.prototype.render = function (todos) {
     const checkbox = createCheckbox(_id, done)
     li.appendChild(checkbox)
 
-    const textSpan = document.createElement('span')
-    textSpan.textContent = text;
-    li.appendChild(textSpan)
+    const textField = createTextField(_id, text)
+    li.appendChild(textField)
     
     const button = createDeleteButton(_id)
     li.appendChild(button);
@@ -40,11 +39,23 @@ function createCheckbox(id, done) {
   checkbox.checked = done
 
   checkbox.addEventListener('change', (evt) => {
-    const done = evt.target.checked
-    PubSub.publish('TodoList:update-done', {id, done})
+    const todo = {done:evt.target.checked}
+    PubSub.publish('TodoList:update-todo', {id, todo})
   })
 
   return checkbox
+}
+
+function createTextField(id, text) {
+  const textField = document.createElement('input')
+  textField.value = text;
+
+  textField.addEventListener('change', (evt) => {
+    const todo = {text:evt.target.value}
+    PubSub.publish('TodoList:update-todo', {id, todo})
+  })
+
+  return textField
 }
 
 function createDeleteButton(id) {
