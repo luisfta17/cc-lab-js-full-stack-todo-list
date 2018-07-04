@@ -14,6 +14,23 @@ function createRouter(collection) {
     })
   })
 
+  router.put('/:id', (req, res) => {
+    const newDoc = req.body
+    const _id = ObjectID(req.params.id)
+
+    collection.updateOne({_id}, {$set: newDoc}).then(() => {
+      getAllDocs(res)
+    })
+  })
+
+  router.delete('/:id', (req, res) => {
+    const _id = ObjectID(req.params.id)
+
+    collection.deleteOne({_id}).then(() => {
+      getAllDocs(res)
+    })
+  })
+
   return router;
 
   function getAllDocs(res) {
